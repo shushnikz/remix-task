@@ -136,3 +136,84 @@ const resources = [
     ),
   },
 ];
+
+// import { useLoaderData } from "@remix-run/react";
+// import { redirect, json, LoaderFunctionArgs } from "@remix-run/node";
+// import db from "~/utils/db.server";
+// import { getSession } from "~/utils/session.server";
+// import WeatherCard from "~/components/weathercard";
+// import { useState } from "react";
+
+// export const loader = async ({ request }: LoaderFunctionArgs) => {
+//   const session = await getSession(request.headers.get("Cookie"));
+//   const userId = session.get("userId");
+
+//   if (!userId) {
+//     return redirect("/login");
+//   }
+
+//   const user = await db.user.findUnique({
+//     where: { id: userId },
+//     include: { favorites: true },
+//   });
+
+//   if (!user) {
+//     return redirect("/login");
+//   }
+
+//   return json({ user });
+// };
+
+// export default function Index() {
+//   const { user } = useLoaderData();
+//   const [cities, setCities] = useState(user.favorites);
+
+//   const addCity = async (cityName: string) => {
+//     if (cities.length >= 5) {
+//       alert("Maximum of 5 cities allowed");
+//       return;
+//     }
+
+//     const response = await fetch("/api/add-city", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify({ cityName }),
+//     });
+
+//     if (response.ok) {
+//       const newCity = await response.json();
+//       setCities((prev) => [...prev, newCity]);
+//     }
+//   };
+
+//   const removeCity = async (cityId: string) => {
+//     const response = await fetch(`/api/remove-city/${cityId}`, { method: "DELETE" });
+
+//     if (response.ok) {
+//       setCities((prev) => prev.filter((city) => city.id !== cityId));
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <h1>Welcome to the weather app, {user.name}!</h1>
+//       <input
+//         type="text"
+//         placeholder="Enter a city"
+//         onKeyDown={(e) => {
+//           if (e.key === "Enter") addCity(e.currentTarget.value);
+//         }}
+//       />
+//       <div>
+//         {cities.map((city) => (
+//           <WeatherCard
+//             key={city.id}
+//             cityName={city.cityName}
+//             onRemove={() => removeCity(city.id)}
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
+
